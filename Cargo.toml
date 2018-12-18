@@ -4,8 +4,13 @@ version = "0.1.0"
 authors = ["Joël Lupien (Jojolepro) <jojolepromain@gmail.com>"]
 edition = "2018"
 description = """
-A clean way to define function as a set of subfunctions where each has
-defined start and end bounds.
+A Half Matrix implementation.
+Used mostly to represent many to many boolean representations.
+
+For example, if you have A, B, C.
+You can say (B, A) = true and the rest = false.
+
+See the docs.rs page or the github repository for more information.
 """
 
 keywords = ["half", "matrix", "groups"]
