@@ -48,30 +48,32 @@ impl HalfMatrix {
     /// This value represents the maximum number of indices you can have for both sides.
     /// ABCD size = 4.
     pub fn new(size: u32) -> Self {
-        if size > 16777216 {
+        if size > 5792 {
             panic!("Size of HalfMatrix too big! Maximum size is 5792 and requested size is {}.", size);
         }
-        let size = (size * (size + 1)) / 2;
+        let index_size = (size * (size + 1)) / 2;
         HalfMatrix {
             size,
-            collision_matrix: BitSet::with_capacity(size),
+            collision_matrix: BitSet::with_capacity(index_size),
         }
     }
 
+    /// Returns the size of one side of the matrix.
+    pub fn size(&self) -> u32 {
+        self.size
+    }
+
     /// Enables the boolean for the position (row, column).
-    /// Row is required to be bigger or equal to column.
     pub fn enable(&mut self, row: u32, column: u32) {
         self.collision_matrix.add(self.index_of(row, column));
     }
 
     /// Disables the boolean for the position (row, column).
-    /// Row is required to be bigger or equal to column.
     pub fn disable(&mut self, row: u32, column: u32) {
         self.collision_matrix.remove(self.index_of(row, column));
     }
 
     /// Returns the boolean for the position (row, column).
-    /// Row is required to be bigger or equal to column.
     pub fn contains(&self, row: u32, column: u32) -> bool {
         self.collision_matrix.contains(self.index_of(row, column))
     }
@@ -80,9 +82,15 @@ impl HalfMatrix {
     /// The internal indexing starts at 0. This means that index_of(0,0) = 0. That is the position of (A, A).
     /// Row is required to be bigger or equal to column.
     pub(crate) fn index_of(&self, row: u32, column: u32) -> u32 {
-        debug_assert!(row >= column);
-        let row_sum = (row * (row + 1)) / 2;
-        let idx = row_sum + column;
+        // If you entered the indices in the wrong orther, I'll fix them for you. ;)
+        let (a, b) = if row >= column {
+            (row, column)
+        } else {
+            (column, row)
+        };
+
+        let row_sum = (a * (a + 1)) / 2;
+        let idx = row_sum + b;
         idx
     }
 }
@@ -147,8 +155,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
-    fn out_of_range() {
+    fn out_of_range_swap() {
         let m = HalfMatrix::new(3);
         m.contains(0,1);
     }
