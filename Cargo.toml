@@ -1,0 +1,18 @@
+[package]
+name = "half_matrix"
+version = "0.1.0"
+authors = ["Joël Lupien (Jojolepro) <jojolepromain@gmail.com>"]
+edition = "2018"
+description = """
+A clean way to define function as a set of subfunctions where each has
+defined start and end bounds.
+"""
+
+keywords = ["half", "matrix", "groups"]
+documentation = "https://docs.rs/half_matrix"
+repository = "https://github.com/jojolepro/half-matrix"
+license = "Apache-2.0"
+exclude = ["doc"]
+
+[dependencies]
+hibitset = "0.5"
