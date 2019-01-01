@@ -40,6 +40,7 @@ use hibitset::BitSet;
 #[derive(Debug, Clone)]
 pub struct HalfMatrix {
     size: u32,
+    index_size: u32,
     collision_matrix: BitSet,
 }
 
@@ -54,6 +55,7 @@ impl HalfMatrix {
         let index_size = (size * (size + 1)) / 2;
         HalfMatrix {
             size,
+            index_size,
             collision_matrix: BitSet::with_capacity(index_size),
         }
     }
@@ -91,6 +93,9 @@ impl HalfMatrix {
 
         let row_sum = (a * (a + 1)) / 2;
         let idx = row_sum + b;
+
+        assert!(idx < self.index_size);
+
         idx
     }
 }
@@ -106,6 +111,16 @@ mod tests {
         // Expected: 5
         let m = HalfMatrix::new(4);
         assert_eq!(m.index_of(2,2), 5);
+    }
+
+    #[should_panic]
+    #[test]
+    fn index_of_fail() {
+        // 4x4
+        // C,C (2,2)
+        // Expected: 5
+        let m = HalfMatrix::new(1);
+        m.index_of(0, 1);
     }
 
     #[test]
