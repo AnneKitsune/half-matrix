@@ -1,4 +1,14 @@
 //! Half matrix storage, Row major
+//! Also called a Triangular Matrix.
+//! ## Purpose
+//! The purpose of this kind of structure is to create associations 
+//! between two elements of the same set.
+//!
+//! This can be used to represent graphs (an edge between point A and B).
+//! It can also be used to represent associations (group A should have physical collisions enabled
+//! with group A and group B).
+//!
+//! ## Internal Representation
 //! ```ignore
 //!  ABCD
 //! A-
@@ -18,7 +28,8 @@
 //! 0123
 //! ```
 //!
-//! Row Major means that the first parameter of the methods is the Y axis in the matrix, and the second is the X axis.
+//! Row Major means that the first parameter of the methods is the Y axis in the matrix 
+//! and the second is the X axis.
 //!
 //! As shown by the matrix, the row value is required to be bigger or equal to the column value.
 //! 
@@ -36,7 +47,8 @@
 
 use hibitset::BitSet;
 
-/// A matrix where only half of it is stored. See the lib documentation for more details.
+/// A matrix where only half of it is stored. 
+/// See the library documentation for more details on the internal representation.
 #[derive(Debug, Clone)]
 pub struct HalfMatrix {
     size: u32,

@@ -1,44 +1,44 @@
+Support an Open Source Developer! :hearts:  
+
+[![Become a patron](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/jojolepro)
+
 # Half Matrix
-A Half Matrix implementation. Like a normal matrix, but you only store half of it. Also it only contains bools.
+A Half Matrix implementation. Also called a triangular matrix.
+Like a normal matrix, but you only store half of it.
 
-### Half Matrix: Storage
-The matrix is row major.
-Here's how it looks like:
+Used to define relations between two elements of the same set.
 
+This can be used to represent graphs (an edge between point A and B).
+It can also be used to represent associations (group A should have physical collisions enabled
+with group A and group B).
+
+## Usage
+
+Cargo.toml:
+```toml
+[dependencies]
+half_matrix = "*"
 ```
- ABCD
-A-
-B--
-C---
-D----
+Code:
+```rust
+// 3x3
+//
+//  012
+// 2oxo
+// 1xx
+// 0o
+
+let mut m = HalfMatrix::new(3);
+m.enable(2, 0);
+m.enable(2, 2);
+m.enable(0, 0);
+
+assert!(m.contains(2,0));
+assert!(m.contains(2,2));
+assert!(m.contains(0,0));
+
+assert!(!m.contains(1,0));
+assert!(!m.contains(1,1));
+assert!(!m.contains(2,1));
 ```
 
-In memory representation:
-```
--|--|---|----
-```
-
-
-Indexing starts at 0.
-```
-ABCD
-0123
-```
-
-Row Major means that the first parameter of the methods is the Y axis in the matrix, and the second is the X axis.
-
-As shown by the matrix, the row value is required to be bigger or equal to the column value.
-
-### Example
-Parameters: (3, 0) = (D, A)
-```
- ABCD
-A-
-B--
-C---
-DX---
-```
-
-### Contributing
-
-If you see a missing method or a bug, open a pull request and I'll be more than happy to merge it!

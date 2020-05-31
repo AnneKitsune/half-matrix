@@ -4,11 +4,11 @@ version = "0.2.1"
 authors = ["Joël Lupien (Jojolepro) <jojolepromain@gmail.com>"]
 edition = "2018"
 description = """
-A Half Matrix implementation.
+A Half Matrix implementation. Also called triangular matrix.
 Used mostly to represent many to many boolean representations.
 
 For example, if you have A, B, C.
-You can say (B, A) = true and the rest = false.
+You can say (A, B) = true and the rest = false.
 
 See the docs.rs page or the github repository for more information.
 """
